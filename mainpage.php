@@ -1,15 +1,47 @@
-<body>
-    <!-- Header Start  -->
-    <?php
-    include 'header.php';
+<?php
+include('header.php');
+include('db.php');
+// Start the session
+session_start();
+
+
+  if (!isset($_SESSION['user_id'])) {
+      // Redirect to login if not logged in
+      header("Location: login.php");
+      exit();
+  }
 ?>
-    <!-- Header End -->
+<body>
+<?php
+    if (isset($_SESSION['user_id'])) {
+        // User is logged in
+        $user_id = $_SESSION['user_id'];
+
+        // Perform a query to get the user's email
+        $email_query = "SELECT email FROM tbluser WHERE id='$user_id'";
+        $result = $conn->query($email_query);
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $user_email = $row['email'];
+            $error = "Welcome, $user_email! ";
+            
+        } 
+    } 
+?>
 
     <!-- Main Page Start  -->
-    <section class="text-gray-600 body-font">
+<section class="text-gray-600 body-font">
   <div class="container px-5 py-12 mx-auto">
     <div class="text-center mb-20">
-      <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">Raw Denim Heirloom Man Braid</h1>
+      <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 mb-4">
+        <?php
+    // Display error message if login fails
+    if (isset($error)) {
+        echo $error;
+    }
+?>
+      </h1>
       <p class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto text-gray-500s">Blue bottle crucifix vinyl post-ironic four dollar toast vegan taxidermy. Gastropub indxgo juice poutine, ramps microdosing banh mi pug.</p>
       <div class="flex mt-6 justify-center">
         <div class="w-16 h-1 rounded-full bg-indigo-500 inline-flex"></div>

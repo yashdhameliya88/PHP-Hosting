@@ -1,11 +1,10 @@
-<body>
-
-    <!-- Header Start  -->
 <?php
-    include 'header.php';
-?>
-    <!-- Header End -->
+include('header.php');
 
+// Start the session
+session_start();
+?>
+<body>
 
     <!-- Home page start  -->
     <section class="text-gray-600 body-font">

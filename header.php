@@ -1,4 +1,8 @@
-<!DOCTYPE html>
+<?php
+session_start();
+error_reporting(0);
+?>
+    <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -10,6 +14,7 @@
 
 <body>
     <!-- Header Start -->
+    
     <header class="text-gray-600 body-font">
         <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
             <a class="flex title-font font-medium items-center text-gray-900 mb-4 md:mb-0">
@@ -21,9 +26,26 @@
                 <span class="ml-3 text-xl">PHP-Hosting</span>
             </a>
             <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+            <?php 
+            if (!isset($_SESSION['user_id'])) {
+                   // User is logged in
+                ?>
                 <a href="index.php" class="mr-5 hover:text-gray-900">Home</a>
-                <a href="mainpage.php"  class="mr-5 hover:text-gray-900">Main Page</a>
+                <?php
+            } else { 
+                // User is not logged in 
+            ?>
+            
+            <a href="mainpage.php"  class="mr-5 hover:text-gray-900">Main Page</a>
+            <a href="changepassword.php"  class="mr-5 hover:text-gray-900">Change Password</a>
+            <a href="accountdelete.php"  class="mr-5 hover:text-gray-900">Account Delete</a>
+                
+            <?php } ?>
             </nav>
+            <?php 
+            if (!isset($_SESSION['user_id'])) {
+                   // User is logged in
+                ?>
             <a href="login.php"
                 class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Login
                 <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -39,6 +61,17 @@
                   
                 </svg>
 </a>
+<?php
+            } else { 
+                // User is not logged in 
+            ?>
+<a href="logout.php"
+                class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-base mt-4 md:mt-0">Log Out
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    class="w-4 h-4 ml-1" viewBox="0 0 24 24">
+                  
+                </svg>
+</a><?php } ?>
         </div>
     </header>
     <!-- header End -->
